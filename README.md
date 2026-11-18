@@ -1,4 +1,4 @@
-# Geo_projects# Project 1: Forest & Land-Cover Mapping around Wageningen, Netherlands
+ Project 1: Forest & Land-Cover Mapping around Wageningen, Netherlands
 
 ## Overview
 This project examines land-cover distribution around Wageningen, Netherlands, using geospatial data and R. The objective is to map land-cover types and quantify the proportion of forest cover within the study area.
