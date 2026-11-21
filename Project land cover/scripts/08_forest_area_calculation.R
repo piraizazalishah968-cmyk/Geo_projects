@@ -8,19 +8,30 @@
 library(terra)
 
 # ------------------------------------------------------------
-# 1. Load land-cover raster
+# 1. Define project and output directories
 # ------------------------------------------------------------
 
-landcover <- rast(
-  file.path(
-    "output",
-    "Project_01_Forest_LandCover",
-    "Wageningen_LandCover_2021.tif"
-  )
+project_dir <- "Project land cover"
+
+output_dir <- file.path(
+  project_dir,
+  "output",
+  "Project_01_Forest_LandCover"
 )
 
 # ------------------------------------------------------------
-# 2. Reproject raster to UTM Zone 31N
+# 2. Load land-cover raster
+# ------------------------------------------------------------
+
+raster_file <- file.path(
+  output_dir,
+  "Wageningen_LandCover_2021.tif"
+)
+
+landcover <- rast(raster_file)
+
+# ------------------------------------------------------------
+# 3. Reproject raster to UTM Zone 31N
 # ------------------------------------------------------------
 
 landcover_utm <- project(
@@ -37,7 +48,7 @@ res(landcover_utm)
 crs(landcover_utm)
 
 # ------------------------------------------------------------
-# 3. Identify forest cells
+# 4. Identify forest cells
 # ESA WorldCover class 10 = Tree cover
 # ------------------------------------------------------------
 
@@ -48,7 +59,7 @@ forest_cells <- global(
 )[1, 1]
 
 # ------------------------------------------------------------
-# 4. Count total valid cells
+# 5. Count total valid cells
 # ------------------------------------------------------------
 
 total_cells <- global(
@@ -61,7 +72,7 @@ total_cells <- global(
 nonforest_cells <- total_cells - forest_cells
 
 # ------------------------------------------------------------
-# 5. Calculate cell area
+# 6. Calculate cell area
 # ------------------------------------------------------------
 
 cell_area_m2 <- prod(res(landcover_utm))
@@ -69,7 +80,7 @@ cell_area_m2 <- prod(res(landcover_utm))
 cell_area_ha <- cell_area_m2 / 10000
 
 # ------------------------------------------------------------
-# 6. Calculate areas in hectares
+# 7. Calculate areas in hectares
 # ------------------------------------------------------------
 
 forest_area_ha <- forest_cells * cell_area_ha
@@ -79,7 +90,7 @@ nonforest_area_ha <- nonforest_cells * cell_area_ha
 total_area_ha <- total_cells * cell_area_ha
 
 # ------------------------------------------------------------
-# 7. Calculate percentages
+# 8. Calculate percentages
 # ------------------------------------------------------------
 
 forest_percentage <- (
@@ -91,7 +102,7 @@ nonforest_percentage <- (
 ) * 100
 
 # ------------------------------------------------------------
-# 8. Create summary table
+# 9. Create summary table
 # ------------------------------------------------------------
 
 area_summary <- data.frame(
@@ -120,7 +131,7 @@ area_summary$Percentage <- round(
 )
 
 # ------------------------------------------------------------
-# 9. Print results
+# 10. Print results
 # ------------------------------------------------------------
 
 print(area_summary)
@@ -129,12 +140,11 @@ cat("\nForest area:", forest_area_ha, "ha\n")
 cat("Forest percentage:", forest_percentage, "%\n")
 
 # ------------------------------------------------------------
-# 10. Save results
+# 11. Save results
 # ------------------------------------------------------------
 
 table_dir <- file.path(
-  "output",
-  "Project_01_Forest_LandCover",
+  output_dir,
   "tables"
 )
 
@@ -154,7 +164,7 @@ write.csv(
 )
 
 # ------------------------------------------------------------
-# 11. Completion message
+# 12. Completion message
 # ------------------------------------------------------------
 
 cat("\nForest area calculation completed successfully!\n")

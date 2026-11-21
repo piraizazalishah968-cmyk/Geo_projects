@@ -8,19 +8,30 @@
 library(terra)
 
 # ------------------------------------------------------------
-# 1. Load cropped raster
+# 1. Define project and output directories
+# ------------------------------------------------------------
+
+project_dir <- "Project land cover"
+
+output_dir <- file.path(
+  project_dir,
+  "output",
+  "Project_01_Forest_LandCover"
+)
+
+# ------------------------------------------------------------
+# 2. Load cropped raster
 # ------------------------------------------------------------
 
 raster_file <- file.path(
-  "output",
-  "Project_01_Forest_LandCover",
+  output_dir,
   "Wageningen_LandCover_2021.tif"
 )
 
 landcover <- rast(raster_file)
 
 # ------------------------------------------------------------
-# 2. Define land-cover class names
+# 3. Define land-cover class names
 # ------------------------------------------------------------
 
 class_codes <- c(
@@ -43,7 +54,7 @@ class_names <- c(
 )
 
 # ------------------------------------------------------------
-# 3. Calculate frequency of each class
+# 4. Calculate frequency of each class
 # ------------------------------------------------------------
 
 landcover_freq <- freq(landcover)
@@ -54,7 +65,7 @@ landcover_freq <- landcover_freq[
 ]
 
 # ------------------------------------------------------------
-# 4. Add class names
+# 5. Add class names
 # ------------------------------------------------------------
 
 landcover_freq$class_name <- class_names[
@@ -62,7 +73,7 @@ landcover_freq$class_name <- class_names[
 ]
 
 # ------------------------------------------------------------
-# 5. Calculate percentage
+# 6. Calculate percentage
 # ------------------------------------------------------------
 
 total_cells <- sum(landcover_freq$count)
@@ -72,7 +83,7 @@ landcover_freq$percentage <- (
 ) * 100
 
 # ------------------------------------------------------------
-# 6. Arrange results
+# 7. Arrange results
 # ------------------------------------------------------------
 
 landcover_freq <- landcover_freq[
@@ -80,13 +91,13 @@ landcover_freq <- landcover_freq[
 ]
 
 # ------------------------------------------------------------
-# 7. Display results
+# 8. Display results
 # ------------------------------------------------------------
 
 print(landcover_freq)
 
 # ------------------------------------------------------------
-# 8. Forest cover summary
+# 9. Forest cover summary
 # ------------------------------------------------------------
 
 forest_cells <- landcover_freq$count[
@@ -100,12 +111,11 @@ forest_percentage <- (
 cat("Forest cover percentage:", forest_percentage, "%\n")
 
 # ------------------------------------------------------------
-# 9. Save summary table
+# 10. Save summary table
 # ------------------------------------------------------------
 
 table_dir <- file.path(
-  "output",
-  "Project_01_Forest_LandCover",
+  output_dir,
   "tables"
 )
 

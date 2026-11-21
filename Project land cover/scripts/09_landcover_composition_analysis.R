@@ -1,13 +1,27 @@
+
 # ------------------------------------------------------------
 # Project 01: Forest & Land-Cover Mapping around Wageningen
 # Script 09: Land-cover Composition Analysis
 # ------------------------------------------------------------
 
-# Load the existing land-cover summary
-summary_file <- file.path(
+# Define project and output directories
+project_dir <- "Project land cover"
+
+output_dir <- file.path(
+  project_dir,
   "output",
-  "Project_01_Forest_LandCover",
-  "tables",
+  "Project_01_Forest_LandCover"
+)
+
+table_dir <- file.path(output_dir, "tables")
+figure_dir <- file.path(output_dir, "figures")
+
+# ------------------------------------------------------------
+# Load the existing land-cover summary
+# ------------------------------------------------------------
+
+summary_file <- file.path(
+  table_dir,
   "landcover_class_summary.csv"
 )
 
@@ -22,9 +36,7 @@ str(landcover_summary)
 # Visualize land-cover composition
 # ------------------------------------------------------------
 
-# ------------------------------------------------------------
 # Land-cover composition chart with percentage labels
-# ------------------------------------------------------------
 
 bar_positions <- barplot(
   landcover_summary$percentage,
@@ -54,9 +66,7 @@ text(
 # ------------------------------------------------------------
 
 output_file <- file.path(
-  "output",
-  "Project_01_Forest_LandCover",
-  "figures",
+  figure_dir,
   "landcover_composition.png"
 )
 

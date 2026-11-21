@@ -5,8 +5,11 @@
 # Purpose: Download ESA WorldCover data
 # ============================================================
 
-# Define data directory at repository root
-data_dir <- "data"
+# Define project directory
+project_dir <- "Project land cover"
+
+# Define data directory inside Project 01
+data_dir <- file.path(project_dir, "data")
 
 # Create data directory if it doesn't exist
 dir.create(data_dir, showWarnings = FALSE, recursive = TRUE)

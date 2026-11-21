@@ -1,3 +1,4 @@
+
 # ============================================================
 # Project 1: Forest & Land-Cover Mapping
 # Script: 07_forest_nonforest_map.R
@@ -7,19 +8,30 @@
 library(terra)
 
 # ------------------------------------------------------------
-# 1. Load cropped land-cover raster
+# 1. Define project and output directories
+# ------------------------------------------------------------
+
+project_dir <- "Project land cover"
+
+output_dir <- file.path(
+  project_dir,
+  "output",
+  "Project_01_Forest_LandCover"
+)
+
+# ------------------------------------------------------------
+# 2. Load cropped land-cover raster
 # ------------------------------------------------------------
 
 raster_file <- file.path(
-  "output",
-  "Project_01_Forest_LandCover",
+  output_dir,
   "Wageningen_LandCover_2021.tif"
 )
 
 landcover <- rast(raster_file)
 
 # ------------------------------------------------------------
-# 2. Reclassify Forest vs Non-Forest
+# 3. Reclassify Forest vs Non-Forest
 # ESA WorldCover class 10 = Tree cover
 # ------------------------------------------------------------
 
@@ -30,7 +42,7 @@ forest_nonforest <- ifel(
 )
 
 # ------------------------------------------------------------
-# 3. Define class labels and colors
+# 4. Define class labels and colors
 # ------------------------------------------------------------
 
 class_names <- c(
@@ -44,7 +56,7 @@ class_colors <- c(
 )
 
 # ------------------------------------------------------------
-# 4. Create plotting function
+# 5. Create plotting function
 # ------------------------------------------------------------
 
 plot_forest_map <- function() {
@@ -85,33 +97,32 @@ plot_forest_map <- function() {
 }
 
 # ------------------------------------------------------------
-# 5. Display map in Positron
+# 6. Display map in Positron
 # ------------------------------------------------------------
 
 plot_forest_map()
 
 # ------------------------------------------------------------
-# 6. Create output directory
+# 7. Create output directory
 # ------------------------------------------------------------
 
-output_dir <- file.path(
-  "output",
-  "Project_01_Forest_LandCover",
+figures_dir <- file.path(
+  output_dir,
   "figures"
 )
 
 dir.create(
-  output_dir,
+  figures_dir,
   recursive = TRUE,
   showWarnings = FALSE
 )
 
 # ------------------------------------------------------------
-# 7. Save map as PNG
+# 8. Save map as PNG
 # ------------------------------------------------------------
 
 output_file <- file.path(
-  output_dir,
+  figures_dir,
   "Wageningen_Forest_vs_NonForest.png"
 )
 
@@ -127,7 +138,7 @@ plot_forest_map()
 dev.off()
 
 # ------------------------------------------------------------
-# 8. Confirm successful output
+# 9. Confirm successful output
 # ------------------------------------------------------------
 
 file.exists(output_file)

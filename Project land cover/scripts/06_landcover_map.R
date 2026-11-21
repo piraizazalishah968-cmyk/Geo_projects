@@ -1,3 +1,4 @@
+
 # ------------------------------------------------------------
 # Project 01: Forest & Land-Cover Mapping around Wageningen
 # Script 06: Land-Cover Map
@@ -5,16 +6,24 @@
 
 library(terra)
 
-# 1. Load raster
-raster_file <- file.path(
+# 1. Define project and output directories
+project_dir <- "Project land cover"
+
+output_dir <- file.path(
+  project_dir,
   "output",
-  "Project_01_Forest_LandCover",
+  "Project_01_Forest_LandCover"
+)
+
+# 2. Load raster
+raster_file <- file.path(
+  output_dir,
   "Wageningen_LandCover_2021.tif"
 )
 
 landcover <- rast(raster_file)
 
-# 2. Define classes
+# 3. Define classes
 class_codes <- c(10, 20, 30, 40, 50, 60, 70, 80, 90, 95, 100)
 
 class_names <- c(
@@ -45,14 +54,14 @@ class_colors <- c(
   "#FAE6A0"
 )
 
-# 3. Reclassify values to IDs 1-11
+# 4. Reclassify values to IDs 1-11
 landcover_map <- subst(
   landcover,
   from = class_codes,
   to = seq_along(class_codes)
 )
 
-# 4. Identify classes present in the study area
+# 5. Identify classes present in the study area
 class_frequency <- freq(landcover)
 
 present_codes <- class_frequency$value
@@ -62,10 +71,9 @@ present_indices <- match(present_codes, class_codes)
 present_names <- class_names[present_indices]
 present_colors <- class_colors[present_indices]
 
-# 5. Create output directory
+# 6. Create output file path
 output_file <- file.path(
-  "output",
-  "Project_01_Forest_LandCover",
+  output_dir,
   "figures",
   "landcover_map.png"
 )
@@ -76,7 +84,7 @@ dir.create(
   showWarnings = FALSE
 )
 
-# 6. Save map with separate legend panel
+# 7. Save map with separate legend panel
 png(
   filename = output_file,
   width = 12,
@@ -137,5 +145,5 @@ dev.off()
 # Reset layout
 layout(1)
 
-# 7. Display the saved map
+# 8. Display completion message
 cat("Map saved successfully:", output_file, "\n")

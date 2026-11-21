@@ -1,4 +1,5 @@
 
+
 # ============================================================
 # Project 1: Forest & Land-Cover Mapping
 # Study area: Wageningen, Netherlands
@@ -19,11 +20,11 @@ if (!requireNamespace("terra", quietly = TRUE)) {
 library(terra)
 
 # 4. Define project directories
-project_dir <- "Project_01_Forest_LandCover"
+project_dir <- "Project land cover"
 
 data_dir <- file.path(project_dir, "data")
 scripts_dir <- file.path(project_dir, "scripts")
-outputs_dir <- file.path(project_dir, "outputs")
+outputs_dir <- file.path(project_dir, "output")
 
 # 5. Check whether directories exist
 dir.exists(data_dir)
@@ -38,3 +39,4 @@ packageVersion("terra")
 
 # 8. Print a message confirming setup
 cat("Project environment initialized successfully!\n")
+

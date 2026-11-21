@@ -12,7 +12,9 @@ library(terra)
 # 1. Define input file
 # ------------------------------------------------------------
 
-data_dir <- "data"
+project_dir <- "Project land cover"
+
+data_dir <- file.path(project_dir, "data")
 
 file_name <- "ESA_WorldCover_10m_2021_v200_N51E003_Map.tif"
 
@@ -70,6 +72,7 @@ plot(
 # ------------------------------------------------------------
 
 output_dir <- file.path(
+  project_dir,
   "output",
   "Project_01_Forest_LandCover"
 )
