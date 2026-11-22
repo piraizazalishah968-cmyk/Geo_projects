@@ -1,68 +1,97 @@
-### Project 1: Forest & Land-Cover Mapping around Wageningen, Netherlands
 
-## Overview
-This project examines land-cover distribution around Wageningen, Netherlands, using geospatial data and R. The objective is to map land-cover types and quantify the proportion of forest cover within the study area.
+# GEO_PROJECTS
 
-## Research Question
-How is land cover distributed around Wageningen, and what proportion of the study area is covered by forests compared with agricultural, built-up, and other land-cover types?
+A geospatial portfolio showcasing practical applications of remote sensing, GIS, and spatial analysis using R. This repository documents projects focused on land-cover mapping, vegetation monitoring, and forest landscape analysis around Wageningen, the Netherlands.
 
-## Objectives
-- Acquire and process land-cover raster data.
-- Explore raster properties and spatial metadata.
-- Define and prepare the study area.
-- Map land-cover categories.
-- Calculate area and percentage of each land-cover type.
-- Quantify forest cover.
-- Visualize and interpret spatial patterns.
+## Projects
 
-## Study Area
-Wageningen, Gelderland, Netherlands.
+### Project 01 — Forest & Land-Cover Mapping
 
-## Dataset
-**ESA WorldCover 2021**
+**Objective:** Map and quantify forest and non-forest land-cover distribution around Wageningen using ESA WorldCover 2021.
 
-- Spatial resolution: 10 metres
-- Data type: Raster
-- Format: GeoTIFF
-- Source: https://esa-worldcover.org/en
+**Data and methods:**
+- ESA WorldCover 2021 (10 m resolution)
+- Raster cropping and masking
+- Land-cover classification
+- Area calculation and percentage analysis
+- Thematic map production
 
-## Tools & Technologies
+**Results:**
+
+| Land-cover group | Area (ha) | Percentage |
+|---|---:|---:|
+| Forest / tree cover | 11,472.55 | 26.2% |
+| Non-forest | 32,319.29 | 73.8% |
+| **Total** | **43,791.84** | **100%** |
+
+### Project 02 — Vegetation Change Detection
+
+**Objective:** Assess changes in vegetation greenness around Wageningen between summer 2025 and summer 2026 using Sentinel-2 satellite imagery.
+
+**Data and methods:**
+- Sentinel-2 Level-2A imagery
+- Earth Search STAC API
+- Red and near-infrared bands
+- Normalized Difference Vegetation Index (NDVI)
+- NDVI difference analysis
+- Vegetation change classification
+- Area statistics and map visualization
+
+**Change calculation:**
+
+`NDVI Change = NDVI 2026 − NDVI 2025`
+
+Change categories:
+- **Decrease:** NDVI change < -0.05
+- **Stable:** -0.05 to 0.05
+- **Increase:** NDVI change > 0.05
+
+The results represent observed differences in vegetation greenness between selected satellite scenes.
+
+### Project 03 — Forest Fragmentation Analysis
+
+**Objective:** Examine the spatial distribution and configuration of forest patches around Wageningen using ESA WorldCover 2021.
+
+**Data and methods:**
+- ESA WorldCover 2021
+- Tree-cover class extraction (class 10)
+- Forest-cover raster preparation
+- Forest patch identification using 8-neighbour connectivity
+- Forest patch area calculation
+- Landscape-level fragmentation metrics
+- Forest patch mapping
+
+**Metrics:**
+- Number of forest patches
+- Total forest area
+- Mean patch area
+- Largest patch area
+
+The analysis describes forest patch patterns at the 10 m land-cover data resolution.
+
+## Software and Tools
+
 - R
-- terra
-- sf
-- ggplot2
-- Git & GitHub
-- Positron IDE
+- Positron
+- `terra`
+- GIS and raster analysis
+- Remote sensing
+- Sentinel-2
+- ESA WorldCover
+- Git and GitHub
 
-## Project Structure
+## Repository Structure
+
 ```text
-Project_01_Forest_LandCover/
-├── README.md
-├── data/
-├── scripts/
-├── outputs/
-│   ├── figures/
-│   └── tables/
-└── docs/
+GEO_PROJECTS/
+├── Project land cover/
+├── Project Vegetation change/
+├── Project Forest fragmentation/
+└── README.md
 ```
 
-## Workflow
-1. Data acquisition
-2. Raster data inspection
-3. Study area preparation
-4. Raster cropping
-5. Land-cover classification visualization
-6. Area calculations
-7. Forest cover analysis
-8. Map production
-9. Interpretation and reporting
+Each project directory contains its own scripts, data, outputs, figures, tables, and documentation.
 
-## Expected Outputs
-- Land-cover map of Wageningen
-- Land-cover area statistics
-- Forest cover percentage
-- Publication-quality map
-- Reproducible R scripts
+## Project Scope
 
-## Status
-Project setup completed. Data acquisition and analysis pending.
+These projects demonstrate geospatial data processing, remote sensing workflows, raster analysis, land-cover assessment, vegetation change detection, and landscape pattern analysis using open geospatial datasets.
